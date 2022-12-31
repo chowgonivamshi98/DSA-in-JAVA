@@ -1,0 +1,8 @@
+public class binarytree <T>{
+    T data;
+    binarytree<T> left;
+    binarytree<T> right;
+    public binarytree(T data){
+        this.data = data;
+    }
+}

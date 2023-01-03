@@ -1,0 +1,29 @@
+//method
+// timecomplexity is nlogn for balance and n^2 for unbalance
+public static int height(binarytree<Integer> root){
+        if(root ==null){
+            return 0;
+        }
+        int s1 = height(root.left);
+        int s2 = height(root.right);
+        if(s1>s2){
+            return s1+1;
+        }
+        else{
+            return s2+1;
+        }
+    }
+    public static boolean balancetree(binarytree<Integer> root){
+        if(root==null){
+            return true;
+        }
+        int leftheight = height(root.left);
+        int rightheight = height(root.right);
+        if(Math.abs(leftheight-rightheight)>1){
+            return false;
+        }
+        boolean r1 = balancetree(root.left);
+        boolean r2 = balancetree(root.right);
+        return r1&&r2;
+
+    }

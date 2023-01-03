@@ -1,0 +1,20 @@
+//method
+public class Solution {
+
+	public static boolean isNodePresent(BinaryTreeNode<Integer> root, int x) {
+	  if(root==null){
+		  return false;
+	  }
+	 if(root.data==x){
+		 return true;
+	 }
+	 boolean x1 =  isNodePresent(root.left,x);
+	 boolean x2 =  isNodePresent(root.right,x);
+	 if(x1){ 
+		 return true;
+	 }
+	 
+	 return x2;
+	}
+
+}

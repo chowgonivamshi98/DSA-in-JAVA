@@ -1,0 +1,39 @@
+//class within  same package
+public class binary {
+    int height;
+    boolean isbalanced;
+}
+// time complexity is O(n)
+public class use{
+public static binary balancebetter(binarytree<Integer> root){
+        if(root == null){
+            int height = 0;
+            boolean isbal = true;
+            binary ans = new binary();
+            ans.height = height;
+            ans.isbalanced = isbal;
+            return ans;
+        }
+        binary left = balancebetter(root.left);
+        binary right = balancebetter(root.right);
+        int height = 1+Math.max(left.height,right.height);
+        boolean isbal = true;
+        if(Math.abs(left.height - right.height)>1){
+            isbal = false;
+        }
+        if(!left.isbalanced||!right.isbalanced){
+            isbal = false;
+        }
+        binary ans = new binary();
+        ans.height= height;
+        ans.isbalanced = isbal;
+        return ans;
+    }
+    public static void main(String[] args){
+        binarytreeuse bin = new binarytreeuse();// created object for defiend class to take input
+        binarytree<Integer> bin1 = bin.takeinputbetter(true,0,false);// to take input 
+        int x = 4 ;
+        //System.out.print(isNodePresent(bin1,x));
+        System.out.print(balancebetter(bin1).isbalanced);// we can get both height and balance or not
+    }
+    }

@@ -1,0 +1,64 @@
+ //method 
+ public static binarytree<Integer> takeinputlevelwise(){
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter root data : ");
+        int root_data = sc.nextInt();
+        if(root_data==-1){
+            return null;
+        }
+        binarytree<Integer> root = new binarytree<>(root_data);
+        Queue<binarytree<Integer> >child = new LinkedList<>();
+        child.add(root);
+
+        while(!child.isEmpty()){
+            binarytree<Integer> front = child.poll();
+            System.out.print("Enter the left_child data : "+front.data);
+            int left_data = sc.nextInt();
+            if(left_data!=-1){
+                binarytree<Integer> left_ref = new binarytree<>(left_data);
+                front.left = left_ref;
+                child.add(left_ref);
+            }
+            System.out.print("Enter the right_child data : "+front.data);
+            int right_data = sc.nextInt();
+            if(right_data!=-1){
+                binarytree<Integer> right_ref = new binarytree<>(right_data);
+                front.left = right_ref;
+                child.add(right_ref);
+            }
+        }
+        return root;
+    }
+    public static void print_levelwise(binarytree<Integer> root){
+        if(root==null){
+            return;
+        }
+        Queue<binarytree<Integer>> child = new LinkedList<>();
+        child.add(root);
+        while(!child.isEmpty()){
+            binarytree<Integer> front = child.poll();
+            System.out.print(front.data+":");
+            if(front.left!=null){
+                child.add(front.left);
+                System.out.print("L:" +front.left.data);
+
+            }
+            else{
+                System.out.print("L:-1");
+            }
+            if(front.right!=null){
+                child.add(front.right);
+                System.out.print(",R:" +front.right.data);
+            }
+            else{
+                System.out.print(",R:-1");
+            }
+            System.out.println();
+        }
+    }
+    public static void main(String[] args){
+       // binarytreeuse bin = new binarytreeuse();
+        binarytree<Integer> bin1 = takeinputlevelwise();
+        print_levelwise(bin1);
+
+    }

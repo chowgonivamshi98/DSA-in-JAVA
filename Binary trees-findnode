@@ -1,0 +1,18 @@
+//this is a method to find number of nodes in java
+//class of a binarytree is in DSA in Java folder
+public class findnode {
+    public static boolean isNodePresent(binarytree<Integer> root, int x) {
+        if(root==null){
+            return false;
+        }
+        if(root.data==x){
+            return true;
+        }
+        boolean x1 =  isNodePresent(root.left,x);
+        boolean x2 =  isNodePresent(root.right,x);
+        if(x1){
+            return true;
+        }
+
+        return x2;
+    }

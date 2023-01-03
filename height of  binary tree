@@ -1,0 +1,20 @@
+// this is method to find height of a binary tree
+public class Solution {
+
+	public static int height(binarytree<Integer> root) {
+		if(root==null){
+			return 0;
+		}
+		int s1 = height(root.left);
+		int s2 = height(root.right);
+		if(s1>s2){
+			return s1+1;
+		} 
+		else{
+			return s2+1;
+		}
+    //or we can directly return 1+Math.max(s1,s2);
+    }
+
+
+}

@@ -1,0 +1,107 @@
+public class HashNode <k,v> {
+    k key;
+    v value;
+    HashNode<k, v> next;
+    public HashNode(k key,v value){
+        this.key= key;
+        this.value = value;
+    }
+}
+//-----------------------------------------------------------------Create Another Class Hashmaps----------------------------------------------------------------------------
+import java.util.ArrayList;
+// import ArrayList from the package
+public class Hasdmap <k,v>{
+    ArrayList<HashNode<k,v>> bucket;
+    int size;//Size of the Hashmap
+    int bucketsize;
+    public Hasdmap(){//constructor
+        bucket = new ArrayList<>();
+        bucketsize = 5;
+     for(int i  =0 ;i<bucketsize;i++) { //travelling i to the bucketsize
+         bucket.add(null);// make bucket null
+     }
+    }
+    public int size(){
+        return size+1;
+    }
+    public int Hashcode(k key){
+        int hashcode = key.hashCode();//key.hashcode() .hashcode is function from the parent class Object
+        int index = Math.abs(hashcode)%bucketsize;//Math.abs is using in case if negative elements insertion
+        return index;
+
+    }
+    public void put(k key ,v value) {  // To insert the key and value
+        int bindex1 = Hashcode(key);
+        HashNode<k, v> head = bucket.get(bindex1);
+        while (head != null) {
+            if (head.key.equals(key)) {
+                head.value = value;
+                return;
+            }
+            head = head.next;
+        }
+        head = bucket.get(bindex1);
+        HashNode<k, v> newnode = new HashNode<>(key, value);
+        newnode.next = head;
+        bucket.set(bindex1, newnode);
+        size++;
+        double loadFactor = (1.0*size)/bucketsize; // load factor is used to maintain timecomplexcity
+        if (loadFactor > 0.75) {
+            rehash();
+        }
+    }
+    public double loadFactor(){
+        return (1.0*size)/bucketsize;
+    }
+    private void rehash() {
+        ArrayList<HashNode<k,v>> temp = bucket;
+        bucket = new ArrayList<>();
+        for(int i =0;i<2*bucketsize;i++){
+            bucket.add(null);
+        }
+        size = 0;
+        bucketsize*=2;
+        for(int i  = 0;i< temp.size();i++){
+            HashNode<k,v> head = temp.get(i);
+            while(head!=null) {
+                k key = head.key;
+                v value = head.value;
+                put(key, value);
+                head = head.next;
+            }
+        }
+    }
+public v get(k key){  
+    int bindex1 = Hashcode(key);
+    HashNode<k, v> head = bucket.get(bindex1);
+    while (head != null) {
+        if (head.key.equals(key)) {
+
+            return head.value;
+        }
+        head = head.next;
+    }
+    return null;
+}
+public v remove(k key){
+    int bindex1 = Hashcode(key);
+    HashNode<k, v> head = bucket.get(bindex1);
+    HashNode<k, v> previous = null;
+    while (head != null) {
+        if (head.key.equals(key)) {
+            if(previous!=null){
+                previous.next=head.next;
+            }
+            else{
+                bucket.set(bindex1,head.next);
+            }
+            size--;
+           return head.value;
+        }
+        previous = head;
+        head = head.next;
+    }
+    return null;
+}
+
+}

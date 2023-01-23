@@ -1,0 +1,36 @@
+class TrieNode{
+    char data;
+    TrieNode[] children ;
+    boolean  isTerminating;
+    int childCount;
+    TrieNode(char data){
+        this.data = data;
+        this.children = new TrieNode[26];
+        this.isTerminating = false;
+        this.childCount =0;
+    }
+        }
+public class Tries {
+    private TrieNode root ;
+    public int count;
+    Tries(){
+        root = new TrieNode('\0');
+    }
+
+
+    public boolean search(String word){
+     return search(root,word);
+    }
+    public boolean search(TrieNode root ,String word){
+ if(word.length()==0){
+     return root.isTerminating;
+ }
+ int childindex = word.charAt(0) - 'a';
+ TrieNode child = root.children[childindex];
+ if(child==null){
+     return false;
+ }
+ return search(child,word.substring(1));
+    }
+
+

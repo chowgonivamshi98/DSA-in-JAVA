@@ -1,0 +1,38 @@
+class TrieNode{
+    char data;
+    TrieNode[] children ;
+    boolean  isTerminating;
+    int childCount;
+    TrieNode(char data){
+        this.data = data;
+        this.children = new TrieNode[26];
+        this.isTerminating = false;
+        this.childCount =0;
+    }
+        }
+public class Tries {
+    private TrieNode root ;
+    public int count;
+    Tries(){
+        root = new TrieNode('\0');
+    }
+
+public void remove(TrieNode root,String word){
+ if(word.length()==0) {
+     root.isTerminating = false;
+     return;
+ }
+ int childindex = word.charAt(0) -'a';
+ TrieNode child = root.children[childindex];
+ if(child==null){
+     return;
+ }
+ remove(child,word.substring(1));
+ if(!root.isTerminating&&root.childCount==0){
+     root.children[childindex] = null;
+     root.childCount--;
+ }
+ }
+public void remove(String word){
+        remove(root,word);
+}

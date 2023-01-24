@@ -1,0 +1,37 @@
+public void removeWord(TrieNode root, String word) {
+// Base case
+if(word.length() == 0) {
+root.isTerminal = false;
+return;
+}
+// Small calculation
+TrieNode child;
+int index = word.charAt(0) - 'a';
+if(root.children[index] != null) {
+child = root.children[index];
+}
+else {
+// Word not found
+return;
+}
+removeWord(child, word.substring(1));
+// Suppose if the character of the string doesn’t have any child and is a
+part of the word to be deleted, then we can simply delete that node also as
+it is not referencing to any other word in the trie
+// Removing child Node if it is useless       |
+                                              |     
+if(!root.isTerminating&&root.childCount==0){  |
+ root.children[childindex] = null;          -or-   if(child.isTerminal == false) {
+  root.childCount--;                          |       for(int i = 0; i < 26; i++) {
+ }                                            |     if(child.children[i] != null) {
+                                              | return;
+                                              |    }
+                                              |  }
+                                              |    delete child;
+                                              |    root.children[index] = null;
+                                              |          }
+                                              |     }
+// For user
+void removeWord(string word) {
+removeWord(root, word);
+}
